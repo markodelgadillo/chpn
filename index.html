@@ -12,20 +12,18 @@
         <section>
           <legend>Total</legend>
           <label for="total">$</label>
-          <input type="number" placeholder="What's the damage?"/>
+          <input id = "total" type="number" placeholder="What's the damage?" required/>
         </section>
 
         <section>
           <legend>Tip</legend>
-          <input type="radio"/>
-          <label for="ten">10%</label>
-        </section>
-        <section>
-          <input type="radio"/>
+          <input type="radio" class="tip" name="tip" value="10"/>
+          <label for="tip">10%</label>
+
+          <input type="radio" class="tip" name="tip" value="12"/>
           <label for="twelve">12%</label>
-        </section>
-        <section>
-          <input type="radio"/>
+
+          <input type="radio" class="tip" name="tip" value="15"/>
           <label for="fifteen">15%</label>
         </section>
 
