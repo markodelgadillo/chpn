@@ -16,8 +16,9 @@ function total(totalAmount) {
 
 // calcluate the total amount plus tip
 function plusTip() {
-  console.log(this.value)
-  cost = cost + cost * (this.value * 0.01)
+  totalAmount.value.toString().split('.')[1].length === 1
+    ? alert('You forgot about the cents!')
+    : (cost = cost + cost * (this.value * 0.01))
   console.log(parseFloat(cost.toString()).toFixed(2))
 }
 
