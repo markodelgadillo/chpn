@@ -28,6 +28,6 @@ function keyCheck(e) {
 }
 
 totalAmount.addEventListener('keypress', total)
-document.addEventListener('keydown', keyCheck)
+totalAmount.addEventListener('keydown', keyCheck)
 tips.forEach(tip => tip.addEventListener('click', plusTip))
 // tip.addEventListener('', plusTip)
