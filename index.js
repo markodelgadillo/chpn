@@ -1,6 +1,5 @@
-// watch the Wes Bos video when he stores data in the browser cookies
-// const contributors = JSON.parse(localStorage.getItem('contributors')) || []
 const contributors = []
+
 var cost
 
 let totalAmount = document.querySelector('#total')
@@ -51,58 +50,21 @@ function keyCheck(e) {
 }
 
 function addContributor() {
+  console.log(typeof person.value)
   person.value === ''
     ? alert('You need to add a name!')
-    : contributors.push(person.value)
+    : contributors.push({ name: person.value.trim(), paid: '$0.00' })
   person.value = ''
-  localStorage.setItem('contributors', JSON.stringify(contributors))
+
+  // localStorage.setItem('contributors', JSON.stringify(contributors))
   console.log(contributors)
 }
 
 function renderContributors() {}
 
 totalAmount.addEventListener('keyup', total)
+totalAmount.addEventListener('keydown', keyCheck)
 totalAmount.addEventListener('select', onSelect)
 totalAmount.addEventListener('drag', onSelect)
-totalAmount.addEventListener('keydown', keyCheck)
 tips.forEach(tip => tip.addEventListener('click', plusTip))
 addPerson.addEventListener('click', addContributor)
-
-// ******************************************************************
-
-// The cost is only storing up to the tenths, not hundredths
-
-// Have the outcome work for whole numbers without decimals
-
-// Selecting a tax radio button after already doing
-// it once is accumilating the total
-
-function total2() {
-  this.value.toString().split('.')[1].length === 1
-    ? this.setAttribute('onkeydown', 'return false')
-    : this.removeAttribute('onkeydown')
-  cost = parseFloat(this.value)
-  console.log(cost)
-}
-
-function checkCents() {
-  console.log(cost, this.value)
-  let tip = parseInt(this.value)
-  !cost.toString().include('.')
-    ? (cost = parseFloat(
-        cost.toString().padEnd(`${cost.toString().length}` + 3, '.00')
-      ))
-    : plusTip(cost, tip)
-}
-
-// set a flag to check if a tip was already calculated
-// if it was, subtract the original tip before re-calculating a new tip percentage
-let tipped2 = false
-function plusTip2() {
-  cost.toString().split('.')[1].length === 1
-    ? alert('You forgot about the cents!')
-    : (cost = cost + cost * (tip * 0.01))
-  alert(
-    'With tip, the total comes out to ' + parseFloat(cost.toString()).toFixed(2)
-  )
-}
