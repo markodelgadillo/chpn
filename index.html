@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ChpN Calculator</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div>
+      <fieldset>
+        <legend>ChpN</legend>
+        <section>
+          <legend>Total</legend>
+          <label for="total">$</label>
+          <input id = "total" type="number" placeholder="What's the damage?" />
+        </section>
+
+        <section>
+          <legend>Tip</legend>
+          <input type="radio" class="tip" name="tip" value="10"/>
+          <label for="tip">10%</label>
+
+          <input type="radio" class="tip" name="tip" value="12"/>
+          <label for="twelve">12%</label>
+
+          <input type="radio" class="tip" name="tip" value="15"/>
+          <label for="fifteen">15%</label>
+        </section>
+
+        <section>
+          <legend>Who's in?</legend>
+          <input id="person" type="text" placeholder="Name"/>
+          <button id="add">
+            <label for="add">+</label>
+          </button>
+        </section>
+
+        <section>
+          <button id="calculate">ChpN!</button>
+        </section>
+
+      </fieldset>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
