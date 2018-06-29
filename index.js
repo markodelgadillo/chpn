@@ -1,5 +1,6 @@
 // watch the Wes Bos video when he stores data in the browser cookies
-const contributors = JSON.parse(localStorage.getItem('contributors')) || []
+// const contributors = JSON.parse(localStorage.getItem('contributors')) || []
+const contributors = []
 var cost
 
 let totalAmount = document.querySelector('#total')
@@ -16,6 +17,11 @@ function total() {
       : this.removeAttribute('onkeydown')
   cost = parseFloat(this.value)
   console.log(typeof cost, cost)
+}
+
+function onSelect() {
+  this.removeAttribute('onkeydown', 'return false')
+  window.setTimeout(total, 250)
 }
 
 function plusTip() {
@@ -53,7 +59,11 @@ function addContributor() {
   console.log(contributors)
 }
 
+function renderContributors() {}
+
 totalAmount.addEventListener('keyup', total)
+totalAmount.addEventListener('select', onSelect)
+totalAmount.addEventListener('drag', onSelect)
 totalAmount.addEventListener('keydown', keyCheck)
 tips.forEach(tip => tip.addEventListener('click', plusTip))
 addPerson.addEventListener('click', addContributor)
