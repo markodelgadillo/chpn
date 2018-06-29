@@ -8,20 +8,33 @@ let person = document.querySelector('#person')
 let addPerson = document.querySelector('#add')
 let calculate = document.querySelector('#calculate')
 
-function total(totalAmount) {
-  this.value.toString().split('.')[1].length === 1
-    ? this.setAttribute('onkeydown', 'return false')
-    : this.removeAttribute('onkeydown')
-
+function total() {
+  !this.value.includes('.')
+    ? (cost = parseFloat(this.value))
+    : this.value.split('.')[1].length === 2
+      ? this.setAttribute('onkeydown', 'return false')
+      : this.removeAttribute('onkeydown')
   cost = parseFloat(this.value)
+  console.log(typeof cost, cost)
 }
 
 function plusTip() {
-  totalAmount.value.toString().split('.')[1].length === 1
-    ? alert('You forgot about the cents!')
-    : (cost = cost + cost * (this.value * 0.01))
+  let withTip
+  console.log(
+    typeof parseFloat(cost.toString().padEnd(cost.toString().length + 1, '0'))
+  )
+  Number(cost) === cost && cost % 1 === 0
+    ? (withTip = cost + cost * (this.value * 0.01))
+    : cost.toString().split('.')[1].length === 1
+      ? (cost = parseFloat(
+          cost.toString().padEnd(cost.toString().length + 1, '0')
+        ))
+      : (withTip = cost + cost * (this.value * 0.01))
+  withTip = cost + cost * (this.value * 0.01)
+
   alert(
-    'With tip, the total comes out to ' + parseFloat(cost.toString()).toFixed(2)
+    'With tip, the total comes out to ' +
+      parseFloat(withTip.toString()).toFixed(2)
   )
 }
 
@@ -40,7 +53,46 @@ function addContributor() {
   console.log(contributors)
 }
 
-totalAmount.addEventListener('keypress', total)
+totalAmount.addEventListener('keyup', total)
 totalAmount.addEventListener('keydown', keyCheck)
 tips.forEach(tip => tip.addEventListener('click', plusTip))
 addPerson.addEventListener('click', addContributor)
+
+// ******************************************************************
+
+// The cost is only storing up to the tenths, not hundredths
+
+// Have the outcome work for whole numbers without decimals
+
+// Selecting a tax radio button after already doing
+// it once is accumilating the total
+
+function total2() {
+  this.value.toString().split('.')[1].length === 1
+    ? this.setAttribute('onkeydown', 'return false')
+    : this.removeAttribute('onkeydown')
+  cost = parseFloat(this.value)
+  console.log(cost)
+}
+
+function checkCents() {
+  console.log(cost, this.value)
+  let tip = parseInt(this.value)
+  !cost.toString().include('.')
+    ? (cost = parseFloat(
+        cost.toString().padEnd(`${cost.toString().length}` + 3, '.00')
+      ))
+    : plusTip(cost, tip)
+}
+
+// set a flag to check if a tip was already calculated
+// if it was, subtract the original tip before re-calculating a new tip percentage
+let tipped2 = false
+function plusTip2() {
+  cost.toString().split('.')[1].length === 1
+    ? alert('You forgot about the cents!')
+    : (cost = cost + cost * (tip * 0.01))
+  alert(
+    'With tip, the total comes out to ' + parseFloat(cost.toString()).toFixed(2)
+  )
+}
