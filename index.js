@@ -9,7 +9,6 @@ let addPerson = document.querySelector('#add')
 let calculate = document.querySelector('#calculate')
 let list = document.querySelector('.names')
 var paying = document.querySelectorAll('.paying')
-var remove
 
 function total() {
   !this.value.includes('.')
@@ -61,12 +60,9 @@ function addContributor() {
       })
   personName.value = ''
 
-  // localStorage.setItem('contributors', JSON.stringify(contributors))
-  console.log(contributors)
   renderContributors(contributors, list)
 }
 
-// function to have a contributor pay a different amount
 function toggle(e) {
   e.preventDefault
   !payElse
@@ -86,13 +82,8 @@ function renderContributors() {
     `
     })
     .join('')
-  // chipIn()
 }
 
-// function to calculate the split amounts and render them
-// function chipIn() {}
-
-// use the data-id value of this to delete from the array using array.splice
 function deleteName(e) {
   let id = parseInt(e.target.dataset.id)
   !e.target.matches('button') ? '' : contributors.splice(id, 1)
