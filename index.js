@@ -8,7 +8,8 @@ let personName = document.querySelector('#person-name')
 let addPerson = document.querySelector('#add')
 let calculate = document.querySelector('#calculate')
 let list = document.querySelector('.names')
-let paying = document.querySelectorAll('.paying')
+var paying = document.querySelectorAll('.paying')
+var remove
 
 function total() {
   !this.value.includes('.')
@@ -18,6 +19,7 @@ function total() {
       : this.removeAttribute('onkeydown')
   cost = parseFloat(this.value)
   payMoreLess ? (personName.paid = cost) : ''
+  !payMoreLess
   console.log(typeof cost, cost)
 }
 
@@ -32,8 +34,8 @@ function onSelect() {
   window.setTimeout(total, 250)
 }
 
+var withTip
 function plusTip() {
-  let withTip
   Number(cost) === cost && cost % 1 === 0
     ? (withTip = cost + cost * (this.value * 0.01))
     : cost.toString().split('.')[1].length === 1
@@ -52,7 +54,11 @@ function plusTip() {
 function addContributor() {
   personName.value === ''
     ? alert('You need to add a name!')
-    : contributors.push({ name: personName.value.trim(), paid: 'How much?' })
+    : contributors.push({
+        name: personName.value.trim(),
+        pay: '',
+        recalculate: false
+      })
   personName.value = ''
 
   // localStorage.setItem('contributors', JSON.stringify(contributors))
@@ -60,31 +66,44 @@ function addContributor() {
   renderContributors(contributors, list)
 }
 
+// function to have a contributor pay a different amount
 function toggle(e) {
   e.preventDefault
-  !payMoreLess
+  !payElse
 }
 
-var payMoreLess = false
+var payElse = false
 
-function renderContributors(contributors = [], list) {
+function renderContributors() {
   list.innerHTML = contributors
     .map((name, i) => {
       return `
-    <li class="paying">
-      <button id="delete">${'X'}</button>
+    <li class="paying" data-id =${i}>
+      <button class="delete" data-id=${i}>${'X'}</button>
       <span>${name.name}</span>
-      ${payMoreLess ? totalAmount : `<span>${name.paid}</span>`}
+      ${payElse ? totalAmount : `<div>${name.pay}</div>`}
     </li>
     `
     })
     .join('')
+  // chipIn()
 }
 
+// function to calculate the split amounts and render them
+// function chipIn() {}
+
+// use the data-id value of this to delete from the array using array.splice
+function deleteName(e) {
+  let id = parseInt(e.target.dataset.id)
+  console.log(id, id + 1)
+  !e.target.matches('button') ? '' : contributors.splice(id, 1)
+  renderContributors(contributors, list)
+}
+
+list.addEventListener('click', deleteName)
 totalAmount.addEventListener('keyup', total)
 totalAmount.addEventListener('keydown', keyCheck)
 totalAmount.addEventListener('select', onSelect)
 totalAmount.addEventListener('drag', onSelect)
 tips.forEach(tip => tip.addEventListener('click', plusTip))
 addPerson.addEventListener('click', addContributor)
-paying.addEventListener('click', toggle)
