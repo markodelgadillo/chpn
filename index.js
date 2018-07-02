@@ -2,11 +2,13 @@ const contributors = []
 
 var cost
 
-let totalAmount = document.querySelector('#total')
+let totalAmount = document.querySelector('.total')
 let tips = document.querySelectorAll('.tip')
-let person = document.querySelector('#person')
+let personName = document.querySelector('#person-name')
 let addPerson = document.querySelector('#add')
 let calculate = document.querySelector('#calculate')
+let list = document.querySelector('.names')
+var paying = document.querySelectorAll('.paying')
 
 function total() {
   !this.value.includes('.')
@@ -15,7 +17,15 @@ function total() {
       ? this.setAttribute('onkeydown', 'return false')
       : this.removeAttribute('onkeydown')
   cost = parseFloat(this.value)
+  payMoreLess ? (personName.paid = cost) : ''
+  !payMoreLess
   console.log(typeof cost, cost)
+}
+
+function keyCheck(e) {
+  if (e.keyCode === 8 && totalAmount.getAttribute('onkeydown')) {
+    totalAmount.removeAttribute('onkeydown')
+  }
 }
 
 function onSelect() {
@@ -23,11 +33,8 @@ function onSelect() {
   window.setTimeout(total, 250)
 }
 
+var withTip
 function plusTip() {
-  let withTip
-  console.log(
-    typeof parseFloat(cost.toString().padEnd(cost.toString().length + 1, '0'))
-  )
   Number(cost) === cost && cost % 1 === 0
     ? (withTip = cost + cost * (this.value * 0.01))
     : cost.toString().split('.')[1].length === 1
@@ -43,25 +50,47 @@ function plusTip() {
   )
 }
 
-function keyCheck(e) {
-  if (e.keyCode === 8 && totalAmount.getAttribute('onkeydown')) {
-    totalAmount.removeAttribute('onkeydown')
-  }
-}
-
 function addContributor() {
-  console.log(typeof person.value)
-  person.value === ''
+  personName.value === ''
     ? alert('You need to add a name!')
-    : contributors.push({ name: person.value.trim(), paid: '$0.00' })
-  person.value = ''
+    : contributors.push({
+        name: personName.value.trim(),
+        pay: '',
+        recalculate: false
+      })
+  personName.value = ''
 
-  // localStorage.setItem('contributors', JSON.stringify(contributors))
-  console.log(contributors)
+  renderContributors(contributors, list)
 }
 
-function renderContributors() {}
+function toggle(e) {
+  e.preventDefault
+  !payElse
+}
 
+var payElse = false
+
+function renderContributors() {
+  list.innerHTML = contributors
+    .map((name, i) => {
+      return `
+    <li class="paying" data-id =${i}>
+      <button class="delete" data-id=${i}>${'X'}</button>
+      <span>${name.name}</span>
+      ${payElse ? totalAmount : `<div>${name.pay}</div>`}
+    </li>
+    `
+    })
+    .join('')
+}
+
+function deleteName(e) {
+  let id = parseInt(e.target.dataset.id)
+  !e.target.matches('button') ? '' : contributors.splice(id, 1)
+  renderContributors(contributors, list)
+}
+
+list.addEventListener('click', deleteName)
 totalAmount.addEventListener('keyup', total)
 totalAmount.addEventListener('keydown', keyCheck)
 totalAmount.addEventListener('select', onSelect)
