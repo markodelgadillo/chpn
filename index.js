@@ -95,7 +95,6 @@ function renderContributors() {
 // use the data-id value of this to delete from the array using array.splice
 function deleteName(e) {
   let id = parseInt(e.target.dataset.id)
-  console.log(id, id + 1)
   !e.target.matches('button') ? '' : contributors.splice(id, 1)
   renderContributors(contributors, list)
 }
