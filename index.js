@@ -90,6 +90,13 @@ function deleteName(e) {
   renderContributors(contributors, list)
 }
 
+function eachPay() {
+  alert(
+    'Each person owes ' + Math.ceil(100 * (withTip / contributors.length)) / 100
+  )
+}
+
+calculate.addEventListener('click', eachPay)
 list.addEventListener('click', deleteName)
 totalAmount.addEventListener('keyup', total)
 totalAmount.addEventListener('keydown', keyCheck)
