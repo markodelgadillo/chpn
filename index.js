@@ -87,13 +87,25 @@ function renderContributors() {
 function deleteName(e) {
   let id = parseInt(e.target.dataset.id)
   !e.target.matches('button') ? '' : contributors.splice(id, 1)
+  eachPay()
   renderContributors(contributors, list)
 }
 
 function eachPay() {
-  alert(
-    'Each person owes ' + Math.ceil(100 * (withTip / contributors.length)) / 100
-  )
+  let splitTotal = Math.ceil(100 * (withTip / contributors.length)) / 100
+  splitTotal.toString().split('.')[1].length === 1
+    ? (splitTotal = parseFloat(
+        splitTotal.toString().padEnd(splitTotal.toString().length + 1, '0')
+      ))
+    : ''
+  alert('Each person owes ' + splitTotal)
+
+  renderEachPay(splitTotal)
+}
+
+function renderEachPay(x) {
+  contributors.map(name => (name.pay = x))
+  renderContributors()
 }
 
 calculate.addEventListener('click', eachPay)
