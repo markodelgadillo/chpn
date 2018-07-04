@@ -17,10 +17,8 @@ function total() {
     : this.value.split('.')[1].length === 2
       ? this.setAttribute('onkeydown', 'return false')
       : this.removeAttribute('onkeydown')
-  cost = parseFloat(this.value)
-  payElse ? (personName.paid = cost) : ''
+  payElse ? (this.personName.paid = cost) : (cost = parseFloat(this.value))
   !payElse
-  console.log(typeof cost, cost)
 }
 
 // checks if delete is pressed and if the input field is turned off
@@ -75,7 +73,7 @@ function addContributor() {
 
 function toggle(e) {
   e.preventDefault
-  !payElse
+  payElse = !payElse
 }
 
 // flag
@@ -102,7 +100,9 @@ function deleteName(e) {
   renderContributors(contributors, list)
 }
 
+// if the chpN button has been pressed, this will change to true
 let chippedIn = false
+
 function eachPay() {
   let splitTotal = Math.ceil(100 * (withTip / contributors.length)) / 100
   splitTotal.toString().split('.')[1].length === 1
