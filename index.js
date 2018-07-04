@@ -70,6 +70,7 @@ function addContributor() {
   personName.value = ''
 
   renderContributors(contributors, list)
+  chippedIn ? eachPay() : ''
 }
 
 function toggle(e) {
@@ -101,6 +102,7 @@ function deleteName(e) {
   renderContributors(contributors, list)
 }
 
+let chippedIn = false
 function eachPay() {
   let splitTotal = Math.ceil(100 * (withTip / contributors.length)) / 100
   splitTotal.toString().split('.')[1].length === 1
@@ -108,7 +110,7 @@ function eachPay() {
         splitTotal.toString().padEnd(splitTotal.toString().length + 1, '0')
       ).toFixed(2))
     : ''
-  console.log(typeof splitTotal)
+  !chippedIn ? (chippedIn = true) : ''
   renderEachPay(splitTotal)
 }
 
