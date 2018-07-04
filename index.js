@@ -106,9 +106,9 @@ function eachPay() {
   splitTotal.toString().split('.')[1].length === 1
     ? (splitTotal = parseFloat(
         splitTotal.toString().padEnd(splitTotal.toString().length + 1, '0')
-      ))
+      ).toFixed(2))
     : ''
-
+  console.log(typeof splitTotal)
   renderEachPay(splitTotal)
 }
 
