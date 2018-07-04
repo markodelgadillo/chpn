@@ -10,6 +10,7 @@ let calculate = document.querySelector('#calculate')
 let list = document.querySelector('.names')
 var paying = document.querySelectorAll('.paying')
 
+// gets the inputted total and outputs
 function total() {
   !this.value.includes('.')
     ? (cost = parseFloat(this.value))
@@ -17,23 +18,31 @@ function total() {
       ? this.setAttribute('onkeydown', 'return false')
       : this.removeAttribute('onkeydown')
   cost = parseFloat(this.value)
-  payMoreLess ? (personName.paid = cost) : ''
-  !payMoreLess
+  payElse ? (personName.paid = cost) : ''
+  !payElse
   console.log(typeof cost, cost)
 }
 
+// checks if delete is pressed and if the input field is turned off
 function keyCheck(e) {
   if (e.keyCode === 8 && totalAmount.getAttribute('onkeydown')) {
     totalAmount.removeAttribute('onkeydown')
   }
 }
 
+// called when selecting the total with dragging the cursor on it
+// it will make the input open to additional inputs again
+// then calls the total() after 250ms
 function onSelect() {
-  this.removeAttribute('onkeydown', 'return false')
+  this.removeAttribute('onkeydown')
   window.setTimeout(total, 250)
 }
 
+// the value plus tip will be stored in this variable and available to other functions
 var withTip
+
+// is called when a radio button is selected
+// and calculates the total plus the tip
 function plusTip() {
   Number(cost) === cost && cost % 1 === 0
     ? (withTip = cost + cost * (this.value * 0.01))
@@ -68,6 +77,7 @@ function toggle(e) {
   !payElse
 }
 
+// flag
 var payElse = false
 
 function renderContributors() {
@@ -87,7 +97,7 @@ function renderContributors() {
 function deleteName(e) {
   let id = parseInt(e.target.dataset.id)
   !e.target.matches('button') ? '' : contributors.splice(id, 1)
-  eachPay()
+  contributors.length ? eachPay() : ''
   renderContributors(contributors, list)
 }
 
@@ -98,7 +108,6 @@ function eachPay() {
         splitTotal.toString().padEnd(splitTotal.toString().length + 1, '0')
       ))
     : ''
-  alert('Each person owes ' + splitTotal)
 
   renderEachPay(splitTotal)
 }
