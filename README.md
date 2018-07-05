@@ -67,7 +67,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Authors
 
-* **Marko Delgadillo** - *Initial work* - [PurpleBooth](https://github.com/markodelgadillo)
+* **Marko Delgadillo** - *Initial work* - [My GitHub](https://github.com/markodelgadillo)
 
 ## License
 
