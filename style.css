@@ -2,6 +2,12 @@ legend {
   text-align: center;
 }
 
+input[type='number'],
+input[type='text'] {
+  height: 1.25rem;
+  width: 33%;
+}
+
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -29,7 +35,7 @@ button:active {
 .paying {
   position: relative;
   width: 80%;
-  height: 50%;
+  height: 50px;
   background-color: lightblue;
   margin: 0 auto;
 }
@@ -38,8 +44,8 @@ button:active {
   position: absolute;
   top: 5%;
   left: 0;
-  height: 90%;
-  width: 10%;
+  height: 20px;
+  width: 20px;
   padding: 0;
 }
 
