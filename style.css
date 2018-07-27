@@ -1,3 +1,7 @@
+* {
+  font-family: sans-serif;
+}
+
 legend {
   text-align: center;
 }
@@ -5,12 +9,13 @@ legend {
 input[type='number'],
 input[type='text'] {
   height: 1.25rem;
-  width: 33%;
+  width: 67%;
 }
 
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
+  font-size: 2rem;
   margin: 0;
 }
 
@@ -32,11 +37,30 @@ button:active {
   background: #3498db;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .paying {
   position: relative;
   width: 80%;
   height: 50px;
   background-color: lightblue;
+  margin: 0 auto;
+}
+
+.paying span {
+  display: inline-block;
+  position: relative;
+  left: 10%;
+  float: left;
+}
+
+.amount {
+  display: block;
+  background-color: gray;
+  border: 1px;
+  width: 25%;
   margin: 0 auto;
 }
 
@@ -49,8 +73,14 @@ button:active {
   padding: 0;
 }
 
+.change {
+  position: relative;
+  top: 50%;
+  right: 0;
+}
+
 #app {
-  width: 50vw;
+  width: 80vw;
   margin: 5% auto;
 }
 
