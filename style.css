@@ -10,7 +10,11 @@ legend {
 input[type='number'],
 input[type='text'] {
   height: 1.25rem;
-  width: 67%;
+  width: 20%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 8px 0;
 }
 
 input[type='number']::-webkit-inner-spin-button,
@@ -54,14 +58,14 @@ button:active {
 .paying span {
   display: inline-block;
   position: relative;
-  left: 10%;
+  left: 15%;
   float: left;
 }
 
 .amount {
   display: inline-blockk;
-  position: relative;
-  left: 10%;
+  position: absolute;
+  right: 10%;
   background-color: lightgrey;
   color: blue;
   border: 1px;
