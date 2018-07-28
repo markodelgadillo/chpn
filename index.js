@@ -64,13 +64,33 @@ function addContributor() {
     ? alert('You need to add a name!')
     : contributors.push({
         name: personName.value.trim(),
-        pay: '0.00',
+        pay: '',
         recalculate: false
       })
   personName.value = ''
 
   renderContributors(contributors, list)
   chippedIn ? eachPay() : ''
+}
+
+function renderContributors() {
+  list.innerHTML = contributors
+    .map((name, i) => {
+      return `
+    <li class="paying" data-id =${i}>
+      <button class="delete"><div class="content" data-id=${i}>${'X'}</div></button>
+      <span>${name.name}</span>
+      ${
+        payElse
+          ? `<input class="newTotal" type="number" placeholder="${
+              name.pay
+            }" data-id=${i}>`
+          : `<divs class = "amount">${'$'}${name.pay}</div>`
+      }
+    </li>
+    `
+    })
+    .join('')
 }
 
 function toggle(e) {
@@ -84,31 +104,9 @@ function toggle(e) {
 // flag
 var payElse = false
 
-function renderContributors() {
-  list.innerHTML = contributors
-    .map((name, i) => {
-      return `
-    <li class="paying" data-id =${i}>
-      <button class="delete" data-id=${i}>${'X'}</button>
-      <span>${name.name}</span>
-      ${
-        payElse
-          ? `<input class="newTotal" type="number" placeholder="${
-              name.pay
-            }" data-id=${i}>`
-          : `<divs class = "amount"><span>${'$'}${
-              name.pay
-            }</span><button class="change" data-id=${i}>${'X'}</button></div>`
-      }
-    </li>
-    `
-    })
-    .join('')
-}
-
 function deleteName(e) {
   let id = parseInt(e.target.dataset.id)
-  e.target.matches('.delete') ? contributors.splice(id, 1) : ''
+  e.target.matches('.delete .content') ? contributors.splice(id, 1) : ''
   contributors.length ? eachPay() : ''
   renderContributors(contributors, list)
 }
@@ -133,14 +131,14 @@ function renderEachPay(x) {
 }
 
 // use a new function for this input field
-newTotals
-  ? newTotals.forEach(newTotal => newTotal.addEventListener('keyup', total))
-  : ''
-newTotals
-  ? newTotals.forEach(newTotal =>
-      newTotal.addEventListener('keydown', keyCheck)
-    )
-  : ''
+// newTotals
+//   ? newTotals.forEach(newTotal => newTotal.addEventListener('keyup', total))
+//   : ''
+// newTotals
+//   ? newTotals.forEach(newTotal =>
+//       newTotal.addEventListener('keydown', keyCheck)
+//     )
+//   : ''
 calculate.addEventListener('click', eachPay)
 list.addEventListener('click', toggle)
 list.addEventListener('click', deleteName)
