@@ -1,6 +1,8 @@
 * {
   font-family: sans-serif;
   font-size: 1.5rem;
+  background-color: #5f4b8b;
+  color: white;
 }
 
 legend {
@@ -31,7 +33,7 @@ button {
   font-family: Arial, sans-serif;
   color: #fff;
   font-size: 15px;
-  background: #3498db;
+  background: #bfb4d7;
   padding: 7px 20px 10px 20px;
   border: solid #1f628d 0;
   text-decoration: none;
@@ -66,7 +68,6 @@ button:active {
   display: inline-blockk;
   position: absolute;
   right: 10%;
-  background-color: lightgrey;
   color: blue;
   border: 1px;
   width: 25%;
@@ -103,6 +104,23 @@ button:active {
   right: 0;
 }
 
+.input-wrapper {
+  padding: 30px 0 0 0;
+  position: relative;
+}
+
+.input-wrapper::before,
+.input-wrapper::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 30%;
+  height: 2px;
+  background-color: black;
+  bottom: 0;
+  left: 35%;
+}
+
 #app {
   width: 80vw;
   margin: 5% auto;
@@ -121,4 +139,5 @@ button:active {
 #add {
   font-size: 20px;
   padding: 1px 10px;
+  height: 25%;
 }
