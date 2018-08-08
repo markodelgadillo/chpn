@@ -12,11 +12,15 @@ legend {
 input[type='number'],
 input[type='text'] {
   height: 1.25rem;
-  width: 20%;
-  background: transparent;
+  width: 22%;
   border: none;
   outline: none;
   padding: 8px 0;
+  color: white;
+}
+
+input[type='text'] {
+  background: transparent;
 }
 
 input[type='number']::-webkit-inner-spin-button,
@@ -33,7 +37,7 @@ button {
   font-family: Arial, sans-serif;
   color: #fff;
   font-size: 15px;
-  background: #bfb4d7;
+  background: #7c7cbf;
   padding: 7px 20px 10px 20px;
   border: solid #1f628d 0;
   text-decoration: none;
@@ -53,7 +57,7 @@ button:active {
   left: 5%;
   width: 75%;
   height: 50px;
-  background-color: lightblue;
+  border: 2px black solid;
   margin: 0 0 10px 0;
 }
 
@@ -96,6 +100,7 @@ button:active {
   bottom: 0;
   right: 0;
   font-size: 2rem;
+  background-color: #7c7cbf;
 }
 
 .change {
@@ -140,4 +145,63 @@ button:active {
   font-size: 20px;
   padding: 1px 10px;
   height: 25%;
+  background-color: #007f00;
+}
+
+input[type='number']::-webkit-input-placeholder-shown {
+  /* Chrome/Opera/Safari */
+  color: red;
+}
+
+input[type='number']::-moz-placeholder-shown {
+  /* Firefox 19+ */
+  background: none;
+  background-color: none;
+  color: white;
+}
+
+input[type='number']:-ms-input-placeholder-shown {
+  /* IE 10+ */
+  background: transparent;
+  background-color: none;
+  color: white;
+}
+
+input[type='number']:-moz-placeholder-shown {
+  /* Firefox 18- */
+  background: none;
+  background-color: none;
+  color: white;
+}
+
+input[type='text']::-webkit-input-placeholder-shown {
+  /* Chrome/Opera/Safari */
+  color: #7c7cbf;
+}
+
+input[type='text']::-moz-placeholder-shown {
+  /* Firefox 19+ */
+  background: none;
+  background-color: none;
+  color: white;
+}
+
+input[type='text']:-ms-input-placeholder-shown {
+  /* IE 10+ */
+  background: transparent;
+  background-color: none;
+  color: white;
+}
+
+input[type='text']:-moz-placeholder-shown {
+  /* Firefox 18- */
+  background: transparent;
+  background-color: none;
+  color: white;
+}
+
+@media (min-width: 1000px) {
+  * {
+    background-color: lightblue;
+  }
 }
