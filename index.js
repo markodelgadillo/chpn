@@ -10,7 +10,10 @@ let calculate = document.querySelector('#calculate')
 let list = document.querySelector('.names')
 var paying = document.querySelectorAll('.paying')
 let amounts = document.querySelectorAll('.amount')
-let newTotals = document.querySelectorAll('.newTotal')
+
+let newTotal = document
+  .createElement('input')
+  .setAttribute('class', 'new-amount')
 
 // gets the inputted total and outputs
 function total() {
@@ -52,10 +55,15 @@ function plusTip() {
         ))
       : (withTip = cost + cost * (this.value * 0.01))
   withTip = cost + cost * (this.value * 0.01)
-
-  alert(
-    'With tip, the total comes out to ' +
-      parseFloat(withTip.toString()).toFixed(2)
+  //
+  // alert(
+  //   'With tip, the total comes out to ' +
+  //     parseFloat(withTip.toString()).toFixed(2)
+  // )
+  totalAmount.value = ''
+  totalAmount.setAttribute(
+    'placeholder',
+    parseFloat(withTip.toString()).toFixed(2)
   )
 }
 
@@ -65,7 +73,7 @@ function addContributor() {
     : contributors.push({
         name: personName.value.trim(),
         pay: '',
-        recalculate: false
+        recalculate: true
       })
   personName.value = ''
 
@@ -76,6 +84,7 @@ function addContributor() {
 function renderContributors() {
   list.innerHTML = contributors
     .map((name, i) => {
+      i = i
       return `
     <li class="paying" data-id =${i}>
       <button class="delete"><div class="content" data-id=${i}>${'X'}</div></button>
@@ -87,18 +96,24 @@ function renderContributors() {
             }" data-id=${i}>`
           : `<divs class = "amount">${'$'}${name.pay}</div>`
       }
+      <button class="setAmount" data-id=${i}> set </button>
     </li>
     `
     })
     .join('')
+  contributors.length > 1
+    ? document
+        .querySelectorAll('.setAmount')
+        .forEach(btn => btn.addEventListener('click', toggle))
+    : document.querySelector('.setAmount').addEventListener('click', toggle)
 }
 
 function toggle(e) {
   let id = parseInt(e.target.dataset.id)
   console.log(id)
-  e.target.matches('.change') ? (payElse = !payElse) : ''
-  console.log(payElse)
-  renderContributors(contributors, list)
+  // e.target.matches('#setAmount') ? (payElse = !payElse) : ''
+  // console.log(payElse)
+  // renderContributors(contributors, list)
 }
 
 // flag
@@ -130,17 +145,7 @@ function renderEachPay(x) {
   renderContributors()
 }
 
-// use a new function for this input field
-// newTotals
-//   ? newTotals.forEach(newTotal => newTotal.addEventListener('keyup', total))
-//   : ''
-// newTotals
-//   ? newTotals.forEach(newTotal =>
-//       newTotal.addEventListener('keydown', keyCheck)
-//     )
-//   : ''
 calculate.addEventListener('click', eachPay)
-list.addEventListener('click', toggle)
 list.addEventListener('click', deleteName)
 totalAmount.addEventListener('keyup', total)
 totalAmount.addEventListener('keydown', keyCheck)
