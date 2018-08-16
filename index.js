@@ -90,13 +90,13 @@ function renderContributors() {
       <button class="delete"><div class="content" data-id=${i}>${'X'}</div></button>
       <span>${name.name}</span>
       ${
-        payElse
+        !contributors[i].recalculate
           ? `<input class="newTotal" type="number" placeholder="${
               name.pay
             }" data-id=${i}>`
           : `<divs class = "amount">${'$'}${name.pay}</div>`
       }
-      <button class="setAmount" data-id=${i}> set </button>
+      <button class="setAmount" data-id=${i}></button>
     </li>
     `
     })
@@ -110,6 +110,8 @@ function renderContributors() {
 
 function toggle(e) {
   let id = parseInt(e.target.dataset.id)
+  contributors[id].recalculate ? (contributors[id].recalculate = false) : ''
+  renderContributors(contributors, list)
   console.log(id)
   // e.target.matches('#setAmount') ? (payElse = !payElse) : ''
   // console.log(payElse)
