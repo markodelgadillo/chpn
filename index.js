@@ -93,7 +93,7 @@ function renderContributors() {
         !contributors[i].recalculate
           ? `<input class="newTotal" type="number" placeholder="${
               name.pay
-            }" data-id=${i}>`
+            }" data-id=${i}/>`
           : `<divs class = "amount">${'$'}${name.pay}</div>`
       }
       <button class="setAmount" data-id=${i}></button>
@@ -110,7 +110,11 @@ function renderContributors() {
 
 function toggle(e) {
   let id = parseInt(e.target.dataset.id)
-  contributors[id].recalculate ? (contributors[id].recalculate = false) : ''
+  if (contributors[id].recalculate) {
+    contributors[id].recalculate = false
+  } else {
+    contributors[id].recalculate = true
+  }
   renderContributors(contributors, list)
   console.log(id)
   // e.target.matches('#setAmount') ? (payElse = !payElse) : ''
@@ -132,6 +136,11 @@ function deleteName(e) {
 let chippedIn = false
 
 function eachPay() {
+  // contributors.forEach(function(person) {
+  //   if ((person.recalculate = false)) {
+  //     person.recalculate = true
+  //   }
+  // })
   let splitTotal = Math.ceil(100 * (withTip / contributors.length)) / 100
   splitTotal.toString().split('.')[1].length === 1
     ? (splitTotal = parseFloat(
