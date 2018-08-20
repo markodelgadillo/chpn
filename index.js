@@ -74,7 +74,7 @@ function addContributor() {
   personName.value = ''
 
   renderContributors(contributors, list)
-  chippedIn ? eachPay() : ''
+  eachPay()
 }
 
 function renderContributors() {
@@ -97,11 +97,14 @@ function renderContributors() {
     `
     })
     .join('')
-  contributors.length > 1
-    ? document
-        .querySelectorAll('.setAmount')
-        .forEach(btn => btn.addEventListener('click', toggle))
-    : document.querySelector('.setAmount').addEventListener('click', toggle)
+
+  if (contributors.length === 1) {
+    document.querySelector('.setAmount').addEventListener('click', toggle)
+  } else if (contributors.length > 1) {
+    document
+      .querySelectorAll('.setAmount')
+      .forEach(btn => btn.addEventListener('click', toggle))
+  }
 }
 
 function toggle(e) {
@@ -128,7 +131,6 @@ function deleteName(e) {
 }
 
 // if the chpN button has been pressed, this will change to true
-let chippedIn = false
 
 function eachPay() {
   // contributors.forEach(function(person) {
@@ -142,7 +144,6 @@ function eachPay() {
         splitTotal.toString().padEnd(splitTotal.toString().length + 1, '0')
       ).toFixed(2))
     : ''
-  !chippedIn ? (chippedIn = true) : ''
   renderEachPay(splitTotal)
 }
 
@@ -151,7 +152,6 @@ function renderEachPay(x) {
   renderContributors()
 }
 
-calculate.addEventListener('click', eachPay)
 list.addEventListener('click', deleteName)
 totalAmount.forEach(input => input.addEventListener('keyup', total))
 totalAmount.forEach(input => input.addEventListener('keydown', keyCheck))
