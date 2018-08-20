@@ -2,7 +2,7 @@ const contributors = []
 
 var cost
 
-let totalAmount = document.querySelector('.total')
+let totalAmount = document.querySelectorAll('.total')
 let tips = document.querySelectorAll('.tip')
 let personName = document.querySelector('#person-name')
 let addPerson = document.querySelector('#add')
@@ -10,10 +10,6 @@ let calculate = document.querySelector('#calculate')
 let list = document.querySelector('.names')
 var paying = document.querySelectorAll('.paying')
 let amounts = document.querySelectorAll('.amount')
-
-let newTotal = document
-  .createElement('input')
-  .setAttribute('class', 'new-amount')
 
 // gets the inputted total and outputs
 function total() {
@@ -55,16 +51,16 @@ function plusTip() {
         ))
       : (withTip = cost + cost * (this.value * 0.01))
   withTip = cost + cost * (this.value * 0.01)
-  //
-  // alert(
-  //   'With tip, the total comes out to ' +
-  //     parseFloat(withTip.toString()).toFixed(2)
-  // )
-  totalAmount.value = ''
-  totalAmount.setAttribute(
-    'placeholder',
-    parseFloat(withTip.toString()).toFixed(2)
-  )
+
+  totalAmount.forEach(function(input) {
+    if (input.value) {
+      input.value = ''
+      input.setAttribute(
+        'placeholder',
+        parseFloat(withTip.toString()).toFixed(2)
+      )
+    }
+  })
 }
 
 function addContributor() {
@@ -91,7 +87,7 @@ function renderContributors() {
       <span>${name.name}</span>
       ${
         !contributors[i].recalculate
-          ? `<input class="newTotal" type="number" placeholder="${
+          ? `<input class="total" type="number" placeholder="${
               name.pay
             }" data-id=${i}/>`
           : `<divs class = "amount">${'$'}${name.pay}</div>`
@@ -119,7 +115,6 @@ function toggle(e) {
   console.log(id)
   // e.target.matches('#setAmount') ? (payElse = !payElse) : ''
   // console.log(payElse)
-  // renderContributors(contributors, list)
 }
 
 // flag
@@ -158,9 +153,9 @@ function renderEachPay(x) {
 
 calculate.addEventListener('click', eachPay)
 list.addEventListener('click', deleteName)
-totalAmount.addEventListener('keyup', total)
-totalAmount.addEventListener('keydown', keyCheck)
-totalAmount.addEventListener('select', onSelect)
-totalAmount.addEventListener('drag', onSelect)
+totalAmount.forEach(input => input.addEventListener('keyup', total))
+totalAmount.forEach(input => input.addEventListener('keydown', keyCheck))
+totalAmount.forEach(input => input.addEventListener('select', onSelect))
+totalAmount.forEach(input => input.addEventListener('drag', onSelect))
 tips.forEach(tip => tip.addEventListener('click', plusTip))
 addPerson.addEventListener('click', addContributor)
