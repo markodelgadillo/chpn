@@ -74,7 +74,9 @@ function addContributor() {
   personName.value = ''
 
   renderContributors(contributors, list)
-  eachPay()
+  if (contributors.length) {
+    eachPay()
+  }
 }
 
 function renderContributors() {
