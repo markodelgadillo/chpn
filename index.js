@@ -114,10 +114,14 @@ function toggle(e) {
   if (contributors[id].recalculate) {
     contributors[id].recalculate = false
   } else {
+    contributors[id].pay = parseFloat(
+      list.querySelector('li > input').value
+    ).toFixed(2)
     contributors[id].recalculate = true
   }
   renderContributors(contributors, list)
   console.log(id)
+  console.log(parseFloat(list.querySelector('li > input').value))
   // e.target.matches('#setAmount') ? (payElse = !payElse) : ''
   // console.log(payElse)
 }

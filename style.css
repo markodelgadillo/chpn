@@ -30,6 +30,12 @@ input[type='number']::-webkit-outer-spin-button {
   margin: 0;
 }
 
+li input[type='number'] {
+  position: absolute;
+  right: 0;
+  width: 33%;
+}
+
 button {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -75,13 +81,10 @@ section {
 }
 
 .amount {
-  display: inline-blockk;
   position: absolute;
   right: 10%;
+  width: 42%;
   color: blue;
-  width: 25%;
-  margin: 0 auto;
-  align-content: center;
 }
 
 .delete {
@@ -126,9 +129,9 @@ section {
 }
 
 .setAmount {
-  position: relative;
-  top: 0;
-  right: -100px;
+  position: absolute;
+  top: 16;
+  right: -77px;
 }
 
 #app {
