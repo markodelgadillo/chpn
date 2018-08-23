@@ -73,16 +73,19 @@ function addContributor() {
       })
   personName.value = ''
 
-  renderContributors(contributors, list)
+  // renderContributors(contributors, list)
   if (contributors.length) {
     eachPay()
   }
 }
 
+// CONVERT THE TERNARY INTO IF STATEMENT THAT WILL HAVE AN IF else
+// THAT CHECKS FOR RECALCULATE TO BE FALSE AND IF THE INPUT HAS A VALUE
+
 function renderContributors() {
+  console.log(contributors)
   list.innerHTML = contributors
     .map((name, i) => {
-      i = i
       return `
     <li class="paying" data-id =${i}>
       <button class="delete"><div class="content" data-id=${i}>${'X'}</div></button>
@@ -92,7 +95,7 @@ function renderContributors() {
           ? `<input class="total" type="number" placeholder="${
               name.pay
             }" data-id=${i}/>`
-          : `<divs class = "amount">${'$'}${name.pay}</div>`
+          : `<div class = "amount">${'$'}${name.pay}</div>`
       }
       <button class="setAmount" data-id=${i}></button>
     </li>
@@ -100,28 +103,30 @@ function renderContributors() {
     })
     .join('')
 
-  if (contributors.length === 1) {
+  if (contributors.length === 1 && !clickAdded) {
     document.querySelector('.setAmount').addEventListener('click', toggle)
-  } else if (contributors.length > 1) {
+  } else if (contributors.length > 1 && !clickAdded) {
     document
       .querySelectorAll('.setAmount')
       .forEach(btn => btn.addEventListener('click', toggle))
   }
 }
-
+// THE ISSUE IS WHEN IS RECALCULATE SET BACK TO TRUE
+// OR HOW TO GETTING THE VALUE FROM THE PERSON WHEN IT'S SET TO FALSE???
+var clickAdded = false
 function toggle(e) {
   let id = parseInt(e.target.dataset.id)
   if (contributors[id].recalculate) {
     contributors[id].recalculate = false
   } else {
-    contributors[id].pay = parseFloat(
-      list.querySelector('li > input').value
-    ).toFixed(2)
+    contributors[id].pay = parseFloat(list.querySelector('li > input').value)
     contributors[id].recalculate = true
   }
-  renderContributors(contributors, list)
   console.log(id)
-  console.log(parseFloat(list.querySelector('li > input').value))
+  console.log(contributors)
+  console.log(contributors[id].pay)
+  renderContributors(contributors, list)
+
   // e.target.matches('#setAmount') ? (payElse = !payElse) : ''
   // console.log(payElse)
 }
