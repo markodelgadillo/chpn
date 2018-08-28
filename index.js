@@ -64,14 +64,18 @@ function plusTip() {
 }
 
 function addContributor() {
-  personName.value === ''
-    ? alert('You need to add a name!')
-    : contributors.push({
-        name: personName.value.trim(),
-        pay: '',
-        recalculate: true
-      })
-  personName.value = ''
+  if (!total.value) {
+    alert('Please enter a total for the bill first :)')
+  } else {
+    personName.value === ''
+      ? alert('You need to add a name!')
+      : contributors.push({
+          name: personName.value.trim(),
+          pay: '',
+          recalculate: true
+        })
+    personName.value = ''
+  }
 
   // renderContributors(contributors, list)
   if (contributors.length) {
@@ -114,6 +118,7 @@ function renderContributors() {
 // THE ISSUE IS WHEN IS RECALCULATE SET BACK TO TRUE
 // OR HOW TO GETTING THE VALUE FROM THE PERSON WHEN IT'S SET TO FALSE???
 var clickAdded = false
+// this is calling renderContributors() two times... why???
 function toggle(e) {
   let id = parseInt(e.target.dataset.id)
   if (contributors[id].recalculate) {
@@ -122,10 +127,8 @@ function toggle(e) {
     contributors[id].pay = parseFloat(list.querySelector('li > input').value)
     contributors[id].recalculate = true
   }
-  console.log(id)
-  console.log(contributors)
-  console.log(contributors[id].pay)
   renderContributors(contributors, list)
+  console.log(1)
 
   // e.target.matches('#setAmount') ? (payElse = !payElse) : ''
   // console.log(payElse)
@@ -133,7 +136,7 @@ function toggle(e) {
 
 // flag
 var payElse = false
-
+// this is also calling renderContributors() two times... why???
 function deleteName(e) {
   let id = parseInt(e.target.dataset.id)
   e.target.matches('.delete .content') ? contributors.splice(id, 1) : ''
