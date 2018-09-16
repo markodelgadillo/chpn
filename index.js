@@ -73,7 +73,7 @@ function plusTip() {
 }
 
 function grandTotal(withTip) {
-  let gTotal = withTip.toFixed(2)
+  let gTotal = Math.ceil(100 * withTip) / 100
   document.getElementById('grand-total').innerHTML = `<span>${gTotal}</span>`
 }
 
@@ -162,11 +162,6 @@ function deleteName(e) {
 // if the chpN button has been pressed, this will change to true
 
 function eachPay() {
-  // contributors.forEach(function(person) {
-  //   if ((person.recalculate = false)) {
-  //     person.recalculate = true
-  //   }
-  // })
   let splitTotal = Math.ceil(100 * (withTip / contributors.length)) / 100
   splitTotal.toString().split('.')[1].length === 1
     ? (splitTotal = parseFloat(
