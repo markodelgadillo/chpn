@@ -53,18 +53,32 @@ function plusTip() {
   withTip = cost + cost * (this.value * 0.01)
 
   totalAmount.forEach(function(input) {
-    if (input.value) {
-      input.value = ''
-      input.setAttribute(
-        'placeholder',
-        parseFloat(withTip.toString()).toFixed(2)
-      )
+    if (!input.value) {
+      input.setAttribute('placeholder', 'No value entered yet.')
     }
   })
+
+  grandTotal(withTip)
+
+  // totalAmount.forEach(function(input) {
+  //   if (input.value) {
+  //     input.value = ''
+  //     input.setAttribute(
+  //       'placeholder',
+  //       withTip.toFixed(2)
+  //       // parseFloat(withTip.toString()).toFixed(2)
+  //     )
+  //   }
+  // })
+}
+
+function grandTotal(withTip) {
+  let gTotal = withTip.toFixed(2)
+  document.getElementById('grand-total').innerHTML = `<span>${gTotal}</span>`
 }
 
 function addContributor() {
-  if (!total.value) {
+  if (totalAmount[0].getAttribute('placeholder') === '') {
     alert('Please enter a total for the bill first :)')
   } else {
     personName.value === ''
@@ -96,7 +110,7 @@ function renderContributors() {
       <span>${name.name}</span>
       ${
         !contributors[i].recalculate
-          ? `<input class="total" type="number" placeholder="${
+          ? `<input class="new total" type="number" placeholder="${
               name.pay
             }" data-id=${i}/>`
           : `<div class = "amount">${'$'}${name.pay}</div>`
@@ -124,10 +138,11 @@ function toggle(e) {
   if (contributors[id].recalculate) {
     contributors[id].recalculate = false
   } else {
-    contributors[id].pay = parseFloat(list.querySelector('li > input').value)
+    contributors[id].pay = parseFloat(list.querySelector('.new.total').value)
+    console.log(contributors)
     contributors[id].recalculate = true
   }
-  renderContributors(contributors, list)
+  renderContributors()
   console.log(1)
 
   // e.target.matches('#setAmount') ? (payElse = !payElse) : ''
@@ -141,7 +156,7 @@ function deleteName(e) {
   let id = parseInt(e.target.dataset.id)
   e.target.matches('.delete .content') ? contributors.splice(id, 1) : ''
   contributors.length ? eachPay() : ''
-  renderContributors(contributors, list)
+  renderContributors()
 }
 
 // if the chpN button has been pressed, this will change to true
